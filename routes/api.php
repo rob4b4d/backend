@@ -3,7 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use  App\Http\Controllers\ConductorController;
+use App\Http\Controllers\ConductorController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController; // Ensure you import the controller
+
+// Registration and Login routes
+Route::post('/register', [AuthenticatedSessionController::class, 'store']); // Registration
+Route::post('/login', [AuthenticatedSessionController::class, 'store']); // Login
+Route::post('/logout', [AuthenticatedSessionController::class, 'logout'])->middleware('auth:sanctum'); // Updated Logout Route
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
